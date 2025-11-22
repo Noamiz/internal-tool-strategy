@@ -9,9 +9,10 @@ Internal administration and operations web app for the End to End Company Produc
 - **Shared packages** – Depends on `common-strategy` for strict TS models and result helpers. Intended to integrate with `server-strategy` for data and authentication.
 
 ## Current status (MVP)
-- Layout + navigation scaffold with placeholder Dashboard view.
-- Users page powered by a typed hook + mock API that returns `Result<UsersListResponse>`.
-- Vitest + Testing Library coverage for the Users page and layout shell.
+- E2E-XS v1 shell: sticky TopBar, collapsible Sidebar, design tokens, inspector lane, and routing via nested layouts.
+- Users page powered by a typed hook + mock API that returns `Result<UsersListResponse>`, now with row selection + inspector details.
+- Command Palette (Ctrl/⌘+K) and AI Assistant panel stubs for modern navigation + guidance flows.
+- Vitest + Testing Library coverage for layout interactions (command palette, AI panel) plus the Users feature.
 - ESLint + Prettier aligned with `web-client-strategy`.
 
 ## Scripts

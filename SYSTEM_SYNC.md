@@ -21,6 +21,16 @@ Internal Tool Strategy is the admin console for the End to End Company Products 
 - Aligns with `web-client-strategy` for build tooling (Vite, Vitest, ESLint, Prettier).
 - Runs behind internal authentication; deployment + auth flows are orchestrated alongside our other web clients.
 
+## UX Contract (E2E-XS v1 – Internal Tool)
+- Render every screen inside the shared `AppShell`: sticky TopBar, left Sidebar, main content canvas, and optional right-side Inspector panel.
+- TopBar always shows the generic app label, current page title, global search placeholder, command palette trigger (`Ctrl/⌘+K`), notifications icon, AI entry point, and user avatar stub.
+- Sidebar houses primary navigation (Dashboard, Users, Data Explorer, System, Settings) and supports collapse/expand behaviors; new pages must plug in here.
+- Command Palette stays available via the keyboard shortcut and the TopBar button, exposing navigation/actions such as toggling the sidebar or opening the AI assistant.
+- Inspector panels display entity details on the right and are opened through shared helpers; tables/lists should trigger the inspector for drill-ins rather than bespoke modals.
+- The AI Assistant panel remains visible and launchable (TopBar + Command Palette) even if the underlying AI is stubbed.
+- Use the shared design tokens (`src/theme/tokens.ts`) reflected in `:root` CSS variables for colors, typography, spacing, radii, and shadows—avoid hard-coded values or brand names.
+- New features should follow the table + filters + inspector pattern, reusing shell primitives, toasts, skeleton states, and future bulk action affordances.
+
 ## Source of truth
 Process, permissions, and flow diagrams live in Confluence under **3 – Product & Features / 3.5 – Internal Tools**. Treat this repo as the UI implementation of those documents; defer to Confluence for canonical decisions around roles, data contracts, and rollout sequencing.
 

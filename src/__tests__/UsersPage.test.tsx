@@ -1,9 +1,10 @@
-import { BrowserRouter } from 'react-router-dom'
-import { render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { UsersListResponse } from '@/api/users'
 import { UsersPage } from '@/features/users/UsersPage'
 import { fetchUsersMock } from '@/api/users'
+import { AppShell } from '@/components/layout/AppShell'
 
 vi.mock('@/api/users', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/api/users')>()
@@ -41,17 +42,26 @@ describe('UsersPage', () => {
     mockFetchUsers.mockResolvedValue({ ok: true, data: response })
 
     render(
-      <BrowserRouter>
-        <UsersPage />
-      </BrowserRouter>,
+      <MemoryRouter initialEntries={['/users']}>
+        <Routes>
+          <Route element={<AppShell />}>
+            <Route path="/users" element={<UsersPage />} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
     )
 
-    expect(screen.getByRole('heading', { name: /users/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: /users/i })).toBeInTheDocument()
     expect(screen.getByText(/loading users/i)).toBeInTheDocument()
 
     await waitFor(() => {
       expect(screen.getByText('jane@example.com')).toBeInTheDocument()
       expect(screen.getByText('john@example.com')).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByText('jane@example.com'))
+    await waitFor(() => {
+      expect(screen.getByText(/detailed activity, permissions/i)).toBeInTheDocument()
     })
   })
 })
