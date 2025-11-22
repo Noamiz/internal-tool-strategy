@@ -3,18 +3,20 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { UsersListResponse } from '@/api/users'
 import { UsersPage } from '@/features/users/UsersPage'
-import { fetchUsersMock } from '@/api/users'
+import { fetchUsers, fetchUsersMock } from '@/api/users'
 import { AppShell } from '@/components/layout/AppShell'
 
 vi.mock('@/api/users', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/api/users')>()
   return {
     ...actual,
+    fetchUsers: vi.fn(),
     fetchUsersMock: vi.fn(),
   }
 })
 
-const mockFetchUsers = vi.mocked(fetchUsersMock)
+const mockFetchUsers = vi.mocked(fetchUsers)
+const mockFetchUsersMock = vi.mocked(fetchUsersMock)
 
 describe('UsersPage', () => {
   it('renders users from the mock API response', async () => {
@@ -40,6 +42,7 @@ describe('UsersPage', () => {
     }
 
     mockFetchUsers.mockResolvedValue({ ok: true, data: response })
+    mockFetchUsersMock.mockResolvedValue({ ok: true, data: response })
 
     render(
       <MemoryRouter initialEntries={['/users']}>
@@ -63,6 +66,9 @@ describe('UsersPage', () => {
     await waitFor(() => {
       expect(screen.getByText(/detailed activity, permissions/i)).toBeInTheDocument()
     })
+
+    expect(mockFetchUsers).toHaveBeenCalledTimes(1)
+    expect(mockFetchUsersMock).not.toHaveBeenCalled()
   })
 })
 

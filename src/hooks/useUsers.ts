@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { User } from 'common-strategy'
-import { fetchUsersMock } from '@/api/users'
+import { fetchUsers, fetchUsersMock } from '@/api/users'
 
 interface UseUsersState {
   users: User[]
@@ -14,6 +14,8 @@ const initialState: UseUsersState = {
   error: null,
 }
 
+const SHOULD_USE_MOCK_USERS = import.meta.env.VITE_USE_MOCK_USERS === 'true'
+
 export function useUsers(): UseUsersState {
   const [state, setState] = useState<UseUsersState>(initialState)
 
@@ -22,7 +24,7 @@ export function useUsers(): UseUsersState {
 
     async function load() {
       try {
-        const result = await fetchUsersMock()
+        const result = SHOULD_USE_MOCK_USERS ? await fetchUsersMock() : await fetchUsers()
 
         if (!isMounted) {
           return

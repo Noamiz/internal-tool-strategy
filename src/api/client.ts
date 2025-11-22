@@ -1,6 +1,7 @@
 import type { ApiError, Result } from 'common-strategy'
 
 const DEFAULT_BASE_URL = 'http://localhost:4000'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? DEFAULT_BASE_URL
 
 function normalizePath(path: string): string {
   if (!path.startsWith('/')) {
@@ -11,8 +12,7 @@ function normalizePath(path: string): string {
 }
 
 function buildUrl(path: string): string {
-  const base = import.meta.env.VITE_API_BASE_URL ?? DEFAULT_BASE_URL
-  return `${base.replace(/\/$/, '')}${normalizePath(path)}`
+  return `${API_BASE_URL.replace(/\/$/, '')}${normalizePath(path)}`
 }
 
 function buildError<T>(message: string): Result<T> {

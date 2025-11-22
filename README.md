@@ -24,6 +24,11 @@ Internal administration and operations web app for the End to End Company Produc
 | `yarn test` | Run Vitest suite (jsdom) |
 | `yarn lint` | ESLint over `src` |
 
+## Environment
+- Copy `.env.example` → `.env.local` (or `.env`) and adjust as needed.
+- `VITE_API_BASE_URL` defaults to `http://localhost:4000`, pointing at the local `server-strategy` instance that now exposes `GET /admin/users`.
+- `VITE_USE_MOCK_USERS=false` keeps the UI talking to the real API; set it to `true` if you need to revert to the inline mock data for offline development.
+
 ## Users page flow
 1. `useUsers` hook calls `fetchUsersMock`, which returns a mocked `Result<UsersListResponse>`.
 2. `UsersPage` renders loading/error states, then passes users to `UsersTable`.

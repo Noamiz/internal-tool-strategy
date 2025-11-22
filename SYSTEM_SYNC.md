@@ -31,6 +31,13 @@ Internal Tool Strategy is the admin console for the End to End Company Products 
 - Use the shared design tokens (`src/theme/tokens.ts`) reflected in `:root` CSS variables for colors, typography, spacing, radii, and shadows—avoid hard-coded values or brand names.
 - New features should follow the table + filters + inspector pattern, reusing shell primitives, toasts, skeleton states, and future bulk action affordances.
 
+## Data & Integrations
+- **Users List (Internal Tool)**  
+  - **Source:** `server-strategy` `GET /admin/users` (currently backed by an in-memory seed containing admin/editor/viewer/ops records).  
+  - **Client:** `internal-tool-strategy` Users page via `fetchUsers()` in `src/api/users.ts`.  
+  - **Config:** `VITE_API_BASE_URL` sets the server base (defaults to `http://localhost:4000` in dev).  
+  - **Offline fallback:** Set `VITE_USE_MOCK_USERS=true` to force the UI to use the built-in mock data instead of calling the server.
+
 ## Source of truth
 Process, permissions, and flow diagrams live in Confluence under **3 – Product & Features / 3.5 – Internal Tools**. Treat this repo as the UI implementation of those documents; defer to Confluence for canonical decisions around roles, data contracts, and rollout sequencing.
 
