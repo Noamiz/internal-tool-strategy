@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import type { InspectorConfig } from '@/components/layout/layoutTypes'
 
 interface InspectorPanelProps {
@@ -7,15 +8,30 @@ interface InspectorPanelProps {
 }
 
 export function InspectorPanel({ isOpen, config, onClose }: InspectorPanelProps) {
+  const titleId = useId()
+  const subtitleId = `${titleId}-subtitle`
+
   return (
-    <aside className={['inspector', isOpen && config ? 'inspector--open' : ''].join(' ').trim()} aria-hidden={!isOpen}>
+    <aside
+      className={['inspector', isOpen && config ? 'inspector--open' : ''].join(' ').trim()}
+      aria-hidden={!isOpen}
+      role="complementary"
+      aria-labelledby={config ? titleId : undefined}
+      aria-describedby={config?.subtitle ? subtitleId : undefined}
+    >
       {config && (
         <>
           <div className="inspector__header">
             <div>
               <p className="page-eyebrow">Inspector</p>
-              <h3 className="inspector__title">{config.title}</h3>
-              {config.subtitle && <p className="inspector__subtitle">{config.subtitle}</p>}
+              <h3 className="inspector__title" id={titleId}>
+                {config.title}
+              </h3>
+              {config.subtitle && (
+                <p className="inspector__subtitle" id={subtitleId}>
+                  {config.subtitle}
+                </p>
+              )}
             </div>
             <button type="button" className="icon-button icon-button--ghost" aria-label="Close inspector" onClick={onClose}>
               ×

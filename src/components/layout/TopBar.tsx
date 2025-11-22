@@ -33,7 +33,7 @@ export function TopBar({
       <div className="top-bar__actions">
         <button type="button" className="icon-button icon-button--ghost" onClick={onOpenCommandPalette}>
           ⌘K
-          <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Command</span>
+          <span className="top-bar__command-label">Command</span>
         </button>
         <button type="button" className="icon-button icon-button--ghost" aria-label="Notifications">
           🔔

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 type Sender = 'assistant' | 'user'
 
@@ -14,6 +14,8 @@ interface AiAssistantPanelProps {
 }
 
 export function AiAssistantPanel({ isOpen, onClose }: AiAssistantPanelProps) {
+  const headingId = useId()
+  const descriptionId = `${headingId}-description`
   const [messageInput, setMessageInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -65,17 +67,26 @@ export function AiAssistantPanel({ isOpen, onClose }: AiAssistantPanelProps) {
   }
 
   return (
-    <aside className={['ai-panel', isOpen ? 'ai-panel--open' : ''].join(' ').trim()} aria-hidden={!isOpen}>
+    <aside
+      className={['ai-panel', isOpen ? 'ai-panel--open' : ''].join(' ').trim()}
+      aria-hidden={!isOpen}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={headingId}
+      aria-describedby={descriptionId}
+    >
       <div className="ai-panel__header">
         <div>
           <p className="page-eyebrow">Assistant</p>
-          <h3 className="inspector__title">AI Assistant</h3>
+          <h3 className="inspector__title" id={headingId}>
+            AI Assistant
+          </h3>
         </div>
         <button type="button" className="icon-button icon-button--ghost" aria-label="Close AI assistant" onClick={onClose}>
           ×
         </button>
       </div>
-      <div className="ai-panel__messages">
+      <div className="ai-panel__messages" id={descriptionId} aria-live="polite">
         {messages.map((message) => (
           <div
             key={message.id}

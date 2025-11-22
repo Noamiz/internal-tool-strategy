@@ -22,7 +22,7 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
   return (
-    <aside className={['sidebar', collapsed ? 'sidebar--collapsed' : ''].join(' ').trim()}>
+    <aside className={['sidebar', collapsed ? 'sidebar--collapsed' : ''].join(' ').trim()} aria-label="Primary sidebar">
       <div className="sidebar__brand">
         <span className="sidebar__brand-badge">XS</span>
         <div>
@@ -30,7 +30,7 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
           <strong className="sidebar__link-label">Internal Tool</strong>
         </div>
       </div>
-      <div className="sidebar__nav">
+      <nav className="sidebar__nav" aria-label="Primary navigation">
         {navigation.map((item) => (
           <NavLink
             key={item.label}
@@ -38,6 +38,7 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
             end={item.end}
             className={({ isActive }) => ['sidebar__link', isActive ? 'sidebar__link--active' : ''].join(' ').trim()}
             title={collapsed ? item.label : undefined}
+            aria-label={collapsed ? item.label : undefined}
           >
             <span className="sidebar__icon" aria-hidden="true">
               {item.icon}
@@ -45,8 +46,14 @@ export function Sidebar({ collapsed, onToggleSidebar }: SidebarProps) {
             <span className="sidebar__link-label">{item.label}</span>
           </NavLink>
         ))}
-      </div>
-      <button type="button" className="sidebar__toggle" onClick={onToggleSidebar}>
+      </nav>
+      <button
+        type="button"
+        className="sidebar__toggle"
+        onClick={onToggleSidebar}
+        aria-label="Toggle sidebar"
+        aria-expanded={!collapsed}
+      >
         {collapsed ? 'Expand' : 'Collapse'}
       </button>
     </aside>
