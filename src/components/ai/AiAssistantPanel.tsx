@@ -75,6 +75,7 @@ export function AiAssistantPanel({ isOpen, onClose }: AiAssistantPanelProps) {
       aria-labelledby={headingId}
       aria-describedby={descriptionId}
     >
+      {/* TODO (accessibility): add focus trapping within the AI panel so keyboard focus cannot escape the dialog while it is open. */}
       <div className="ai-panel__header">
         <div>
           <p className="page-eyebrow">Assistant</p>

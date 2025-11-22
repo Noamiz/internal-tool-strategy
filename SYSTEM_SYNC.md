@@ -29,7 +29,7 @@ Internal Tool Strategy is the admin console for the End to End Company Products 
 - Inspector panels display entity details on the right and are opened through shared helpers; tables/lists should trigger the inspector for drill-ins rather than bespoke modals.
 - The AI Assistant panel remains visible and launchable (TopBar + Command Palette) even if the underlying AI is stubbed.
 - Use the shared design tokens (`src/theme/tokens.ts`) reflected in `:root` CSS variables for colors, typography, spacing, radii, and shadows—avoid hard-coded values or brand names.
-- New features should follow the table + filters + inspector pattern, reusing shell primitives, toasts, skeleton states, and future bulk action affordances.
+- New features should follow the table + filters + inspector pattern, reusing shell primitives, toasts, skeleton states, and future bulk action affordances. Skeleton loaders currently reuse simple text placeholders; a shared shimmer component is planned for a polish pass.
 
 ## Data & Integrations
 - **Users List (Internal Tool)**  
@@ -37,6 +37,7 @@ Internal Tool Strategy is the admin console for the End to End Company Products 
   - **Client:** `internal-tool-strategy` Users page via `fetchUsers()` in `src/api/users.ts`.  
   - **Config:** `VITE_API_BASE_URL` sets the server base (defaults to `http://localhost:4000` in dev).  
   - **Offline fallback:** Set `VITE_USE_MOCK_USERS=true` to force the UI to use the built-in mock data instead of calling the server.
+  - **Skeleton loaders:** Basic loading states are in place today; shared skeleton components are tracked as future E2E-XS polish.
 
 ## Source of truth
 Process, permissions, and flow diagrams live in Confluence under **3 – Product & Features / 3.5 – Internal Tools**. Treat this repo as the UI implementation of those documents; defer to Confluence for canonical decisions around roles, data contracts, and rollout sequencing.

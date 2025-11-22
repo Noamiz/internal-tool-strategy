@@ -50,7 +50,12 @@ export function UsersPage() {
           </button>
         </div>
       </header>
-      {loading && <p>Loading users...</p>}
+      {loading && (
+        <>
+          {/* TODO (E2E-XS v1 polish): replace this placeholder message with a shared skeleton component so all tables share the same shimmer loader. */}
+          <p>Loading users...</p>
+        </>
+      )}
       {error && !loading && <p className="error">{error}</p>}
       {!loading && !error && (
         <UsersTable

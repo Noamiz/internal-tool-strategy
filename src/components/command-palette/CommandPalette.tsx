@@ -71,6 +71,7 @@ export function CommandPalette({ isOpen, onClose, commands }: CommandPaletteProp
 
   return (
     <div className="command-palette" role="dialog" aria-modal="true">
+      {/* TODO (accessibility): introduce optional focus trapping here so the command palette fully mirrors modal dialog behavior. */}
       <div className="command-palette__backdrop" onClick={handleClose} />
       <form className="command-palette__panel" onSubmit={handleSubmit}>
         <input
