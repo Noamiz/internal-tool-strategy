@@ -1,5 +1,7 @@
 # SYSTEM_SYNC – Internal Tool Strategy
 
+This repo is one of the 7 core repos in the secondbase kit.
+
 ## Purpose
 Internal Tool Strategy is the admin console for the End to End Company Products system. It gives internal staff a secure, browser-based surface to inspect live data, run safe mutations, and audit activity.
 

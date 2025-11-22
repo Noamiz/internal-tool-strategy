@@ -1,5 +1,7 @@
 # Internal Tool Strategy
 
+Part of the secondbase kit – a reusable, always-modern company-in-a-box.
+
 Internal administration and operations web app for the End to End Company Products system. Built with React, TypeScript, and Vite to give internal staff a modern console over server data.
 
 ## Architecture
